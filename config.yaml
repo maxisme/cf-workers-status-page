@@ -23,3 +23,15 @@ monitors:
     expectStatus: 200 # operational status, default=200
     followRedirect: false # should fetch follow redirects, default=false
     linkable: false # allows the title to be a link, default=true
+  - id: notifi # unique identifier
+    name: notifi.it
+    url: 'https://notifi.it/' # URL to fetch
+  - id: transfermeit # unique identifier
+    name: transferme.it
+    url: 'https://transferme.it/' # URL to fetch
+  - id: idmyteam # unique identifier
+    name: idmy.team
+    url: 'https://idmy.team/' # URL to fetch
+  - id: maxmeuk # unique identifier
+    name: max.me.uk
+    url: 'https://max.me.uk/' # URL to fetch
