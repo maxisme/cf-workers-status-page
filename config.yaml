@@ -15,23 +15,30 @@ settings:
   dayInHistogramNotOperational: ' incident(s)' # xx incident(s) recorded
 
 monitors:
-  - id: workers-cloudflare-com # unique identifier
-    name: workers.cloudflare.com
-    description: 'You write code. They handle the rest.' # default=empty
-    url: 'https://workers.cloudflare.com/' # URL to fetch
-    method: GET # default=GET
-    expectStatus: 200 # operational status, default=200
-    followRedirect: false # should fetch follow redirects, default=false
-    linkable: false # allows the title to be a link, default=true
-  - id: notifi # unique identifier
+  - id: notifi
     name: notifi.it
-    url: 'https://notifi.it/' # URL to fetch
-  - id: transfermeit # unique identifier
+    url: 'https://notifi.it/'
+  - id: transfermeit
     name: transferme.it
-    url: 'https://transferme.it/' # URL to fetch
-  - id: idmyteam # unique identifier
+    url: 'https://transferme.it/'
+  - id: idmyteam
     name: idmy.team
-    url: 'https://idmy.team/' # URL to fetch
-  - id: maxmeuk # unique identifier
+    url: 'https://idmy.team/'
+  - id: maxmeuk
     name: max.me.uk
-    url: 'https://max.me.uk/' # URL to fetch
+    url: 'https://max.me.uk/'
+  - id: cryptercouk
+    name: crypter.co.uk
+    url: 'https://crypter.co.uk/'
+  - id: juliemitchellco
+    name: juliemitchell.co
+    url: 'https://juliemitchell.co/'
+  - id: wickprojectscouk
+    name: wickprojects.co.uk
+    url: 'https://wickprojects.co.uk/'
+  - id: taskermaritimecouk
+    name: taskermaritime.co.uk
+    url: 'https://taskermaritime.co.uk/'
+  - id: mitchelldesignconsultancycom
+    name: mitchelldesignconsultancy.com
+    url: 'https://mitchelldesignconsultancy.com/'
