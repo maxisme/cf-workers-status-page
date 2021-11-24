@@ -108,6 +108,23 @@ export async function notifyDiscord(monitor, operational) {
   })
 }
 
+export async function notifyNotifi(monitor, operational) {
+  const payload = {
+    title: `${monitor.name} is ${getOperationalLabel(operational)} ${
+        operational ? ':white_check_mark:' : ':x:'
+    }`,
+    message: `\`${monitor.method ? monitor.method : 'GET'} ${
+        monitor.url
+    }\` - :eyes: [Status Page](${config.settings.url})`,
+    credentials: SECRET_NOTIFI_CREDENTIALS
+  }
+  const params = new URLSearchParams(payload).toString()
+  return fetch("https://notifi.it/api"+params, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+  })
+}
+
 export function useKeyPress(targetKey) {
   const [keyPressed, setKeyPressed] = useState(false)
 
