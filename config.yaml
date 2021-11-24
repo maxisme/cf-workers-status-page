@@ -1,8 +1,7 @@
 settings:
   title: 'Status Page'
-  url: 'https://domain-production.isup.workers.dev/' # used for Slack messages
+  url: 'https://status-page.eidam.dev' # used for Slack messages
   logo: logo-192x192.png # image in ./public/ folder
-  logoUrl: 'https://max.me.uk'
   daysInHistogram: 30 # number of days you want to display in histogram
   collectResponseTimes: true # collects avg response times from CRON locations
 
