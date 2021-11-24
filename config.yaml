@@ -16,6 +16,9 @@ settings:
   dayInHistogramNotOperational: ' incident(s)' # xx incident(s) recorded
 
 monitors:
+  - id: maxmeuk
+    name: max.me.uk
+    url: 'https://max.me.uk/'
   - id: notifi
     name: notifi.it
     url: 'https://notifi.it/'
@@ -25,9 +28,6 @@ monitors:
   - id: idmyteam
     name: idmy.team
     url: 'https://idmy.team/'
-  - id: maxmeuk
-    name: max.me.uk
-    url: 'https://max.me.uk/'
   - id: cryptercouk
     name: crypter.co.uk
     url: 'https://crypter.co.uk/'
