@@ -116,7 +116,7 @@ export async function notifyNotifi(monitor, operational) {
     credentials: SECRET_NOTIFI_CREDENTIALS
   }
   const params = new URLSearchParams(payload).toString()
-  return fetch("https://notifi.it/api"+params, {
+  return fetch("https://d.notifi.it/api"+params, {
     method: 'POST',
   })
 }
