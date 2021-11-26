@@ -35,6 +35,7 @@ export async function processCronTrigger(event) {
                 firstCheck: checkDay,
                 lastCheck: {},
                 checks: {},
+                currentFails: 0,
             }
         }
 
@@ -76,7 +77,6 @@ export async function processCronTrigger(event) {
         ) {
             monitorsState.monitors[monitor.id].checks[checkDay] = {
                 fails: 0,
-                currentFails: 0,
                 res: {},
             }
         }
@@ -110,13 +110,13 @@ export async function processCronTrigger(event) {
                 checkLocation
                 ].a = Math.round(ms / no)
 
-            monitorsState.monitors[monitor.id].checks[checkDay].currentFails = 0
+            monitorsState.monitors[monitor.id].currentFails = 0
         } else if (!monitorOperational) {
             // Save allOperational to false
             monitorsState.lastUpdate.allOperational = false
 
             monitorsState.monitors[monitor.id].checks[checkDay].fails++
-            monitorsState.monitors[monitor.id].checks[checkDay].currentFails++
+            monitorsState.monitors[monitor.id].currentFails++
         }
 
         // Send Slack message on monitor change
@@ -129,7 +129,7 @@ export async function processCronTrigger(event) {
         }
 
 
-        const currentFails = monitorsState.monitors[monitor.id].checks[checkDay].currentFails - 1
+        const currentFails = monitorsState.monitors[monitor.id].currentFails - 1
         const monitorChange = monitorsState.monitors[monitor.id].lastCheck.operational !== monitorOperational
         const reminderCountNow = currentFails % config.settings.reminderMinuteInterval === 0
         const reminderCountLimit = Math.floor(currentFails / config.settings.reminderMinuteInterval) <= config.settings.reminderCount
@@ -161,7 +161,7 @@ export async function processCronTrigger(event) {
             typeof SECRET_NOTIFI_CREDENTIALS !== 'undefined' &&
             SECRET_NOTIFI_CREDENTIALS !== 'default-gh-action-secret'
         ) {
-            event.waitUntil(notifyNotifi(monitor, monitorOperational, downtimeString(monitorsState.monitors[monitor.id].checks[checkDay].currentFails)))
+            event.waitUntil(notifyNotifi(monitor, monitorOperational, downtimeString(monitorsState.monitors[monitor.id].currentFails)))
         }
     }
 
