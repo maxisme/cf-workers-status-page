@@ -4,8 +4,8 @@ import { locations } from '../functions/locations'
 const classes = {
   green:
     'bg-green-200 text-green-700 dark:bg-green-700 dark:text-green-200 border-green-300 dark:border-green-600',
-  yellow:
-    'bg-yellow-200 text-yellow-700 dark:bg-yellow-700 dark:text-yellow-200 border-yellow-300 dark:border-yellow-600',
+  red:
+    'bg-red-200 text-red-700 dark:bg-red-700 dark:text-red-200 border-red-300 dark:border-red-600',
 }
 
 export default function MonitorStatusHeader({ kvMonitorsLastUpdate }) {
@@ -13,8 +13,8 @@ export default function MonitorStatusHeader({ kvMonitorsLastUpdate }) {
   let text = config.settings.allmonitorsOperational
 
   if (!kvMonitorsLastUpdate.allOperational) {
-    color = 'yellow'
-    text = 'Service(s) had issues'
+    color = 'red'
+    text = 'Service(s) have issues'
   }
 
   return (
