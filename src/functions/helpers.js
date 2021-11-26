@@ -108,20 +108,16 @@ export async function notifyDiscord(monitor, operational) {
   })
 }
 
+// https://notifi.it
 export async function notifyNotifi(monitor, operational) {
   const payload = {
-    title: `${monitor.name} is ${getOperationalLabel(operational)} ${
-        operational ? ':white_check_mark:' : ':x:'
-    }`,
-    message: `\`${monitor.method ? monitor.method : 'GET'} ${
-        monitor.url
-    }\` - :eyes: [Status Page](${config.settings.url})`,
+    title: `${monitor.name} is ${getOperationalLabel(operational)}`,
+    url: config.settings.url,
     credentials: SECRET_NOTIFI_CREDENTIALS
   }
   const params = new URLSearchParams(payload).toString()
   return fetch("https://notifi.it/api"+params, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
   })
 }
 
@@ -158,4 +154,20 @@ export async function getCheckLocation() {
     method: 'OPTIONS',
   })
   return res.headers.get('cf-ray').split('-')[1]
+}
+
+export function downtimeString(totalMinutes) {
+  const initString = "Down "
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+  if (hours === 24){
+    return initString+"all day!"
+  } else if(hours > 0){
+    return initString+`${hours} hours & ${minutes} minutes!`
+  }
+  return initString+`${minutes} minutes!`
+}
+
+export function getDate() {
+  return new Date().toISOString().split('T')[0]
 }

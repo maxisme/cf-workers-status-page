@@ -4,6 +4,7 @@ settings:
   logo: logo-192x192.png # image in ./public/ folder
   daysInHistogram: 30 # number of days you want to display in histogram
   collectResponseTimes: true # collects avg response times from CRON locations
+  reminderCount: 1
 
   allmonitorsOperational: 'All Systems Operational'
   notAllmonitorsOperational: 'Not All Systems Operational'
@@ -12,7 +13,6 @@ settings:
   monitorLabelNoData: 'No data'
   dayInHistogramNoData: 'No data'
   dayInHistogramOperational: 'All good'
-  dayInHistogramNotOperational: ' incident(s)' # xx incident(s) recorded
 
 monitors:
   - id: maxmeuk

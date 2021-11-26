@@ -14,7 +14,7 @@ export default function MonitorStatusHeader({ kvMonitorsLastUpdate }) {
 
   if (!kvMonitorsLastUpdate.allOperational) {
     color = 'yellow'
-    text = config.settings.notAllmonitorsOperational
+    text = 'Service(s) had issues'
   }
 
   return (

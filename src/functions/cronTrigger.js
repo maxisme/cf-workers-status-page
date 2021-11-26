@@ -7,12 +7,8 @@ import {
   getKVMonitors,
   setKVMonitors,
   notifyDiscord,
-  notifyNotifi,
+  notifyNotifi, getDate,
 } from './helpers'
-
-function getDate() {
-  return new Date().toISOString().split('T')[0]
-}
 
 export async function processCronTrigger(event) {
   // Get Worker PoP and save it to monitorsStateMetadata
@@ -151,10 +147,7 @@ export async function processCronTrigger(event) {
       // Save allOperational to false
       monitorsState.lastUpdate.allOperational = false
 
-      // Increment failed checks on status change or first fail of the day (maybe call it .incidents instead?)
-      if (monitorStatusChanged || monitorsState.monitors[monitor.id].checks[checkDay].fails == 0) {
-        monitorsState.monitors[monitor.id].checks[checkDay].fails++
-      }
+      monitorsState.monitors[monitor.id].checks[checkDay].fails++
     }
   }
 
