@@ -81,6 +81,52 @@ export async function processCronTrigger(event) {
             }
         }
 
+
+        // Send Slack message on monitor change
+        if (
+            shouldAlert &&
+            typeof SECRET_SLACK_WEBHOOK_URL !== 'undefined' &&
+            SECRET_SLACK_WEBHOOK_URL !== 'default-gh-action-secret'
+        ) {
+            event.waitUntil(notifySlack(monitor, monitorOperational))
+        }
+
+
+        const currentFails = monitorsState.monitors[monitor.id].currentFails
+        const monitorChange = monitorsState.monitors[monitor.id].lastCheck.operational !== monitorOperational
+        const reminderCountNow = currentFails % config.settings.reminderMinuteInterval === 0
+        const reminderCountLimit = Math.floor(currentFails / config.settings.reminderMinuteInterval) <= config.settings.reminderCount
+        let shouldAlert = monitorChange || (reminderCountNow && reminderCountLimit)
+
+        // Send Telegram message on monitor change
+        if (
+            shouldAlert &&
+            typeof SECRET_TELEGRAM_API_TOKEN !== 'undefined' &&
+            SECRET_TELEGRAM_API_TOKEN !== 'default-gh-action-secret' &&
+            typeof SECRET_TELEGRAM_CHAT_ID !== 'undefined' &&
+            SECRET_TELEGRAM_CHAT_ID !== 'default-gh-action-secret'
+        ) {
+            event.waitUntil(notifyTelegram(monitor, monitorOperational))
+        }
+
+        // Send Discord message on monitor change
+        if (
+            shouldAlert &&
+            typeof SECRET_DISCORD_WEBHOOK_URL !== 'undefined' &&
+            SECRET_DISCORD_WEBHOOK_URL !== 'default-gh-action-secret'
+        ) {
+            event.waitUntil(notifyDiscord(monitor, monitorOperational))
+        }
+
+        // Send notifi message on monitor change
+        if (
+            shouldAlert &&
+            typeof SECRET_NOTIFI_CREDENTIALS !== 'undefined' &&
+            SECRET_NOTIFI_CREDENTIALS !== 'default-gh-action-secret'
+        ) {
+            event.waitUntil(notifyNotifi(monitor, monitorOperational, downtimeString(monitorsState.monitors[monitor.id].currentFails)))
+        }
+
         if (config.settings.collectResponseTimes && monitorOperational) {
             // make sure location exists in current checkDay
             if (
@@ -117,51 +163,6 @@ export async function processCronTrigger(event) {
 
             monitorsState.monitors[monitor.id].checks[checkDay].fails++
             monitorsState.monitors[monitor.id].currentFails++
-        }
-
-        // Send Slack message on monitor change
-        if (
-            shouldAlert &&
-            typeof SECRET_SLACK_WEBHOOK_URL !== 'undefined' &&
-            SECRET_SLACK_WEBHOOK_URL !== 'default-gh-action-secret'
-        ) {
-            event.waitUntil(notifySlack(monitor, monitorOperational))
-        }
-
-
-        const currentFails = monitorsState.monitors[monitor.id].currentFails - 1
-        const monitorChange = monitorsState.monitors[monitor.id].lastCheck.operational !== monitorOperational
-        const reminderCountNow = currentFails % config.settings.reminderMinuteInterval === 0
-        const reminderCountLimit = Math.floor(currentFails / config.settings.reminderMinuteInterval) <= config.settings.reminderCount
-        let shouldAlert = monitorChange || (reminderCountNow && reminderCountLimit)
-
-        // Send Telegram message on monitor change
-        if (
-            shouldAlert &&
-            typeof SECRET_TELEGRAM_API_TOKEN !== 'undefined' &&
-            SECRET_TELEGRAM_API_TOKEN !== 'default-gh-action-secret' &&
-            typeof SECRET_TELEGRAM_CHAT_ID !== 'undefined' &&
-            SECRET_TELEGRAM_CHAT_ID !== 'default-gh-action-secret'
-        ) {
-            event.waitUntil(notifyTelegram(monitor, monitorOperational))
-        }
-
-        // Send Discord message on monitor change
-        if (
-            shouldAlert &&
-            typeof SECRET_DISCORD_WEBHOOK_URL !== 'undefined' &&
-            SECRET_DISCORD_WEBHOOK_URL !== 'default-gh-action-secret'
-        ) {
-            event.waitUntil(notifyDiscord(monitor, monitorOperational))
-        }
-
-        // Send notifi message on monitor change
-        if (
-            shouldAlert &&
-            typeof SECRET_NOTIFI_CREDENTIALS !== 'undefined' &&
-            SECRET_NOTIFI_CREDENTIALS !== 'default-gh-action-secret'
-        ) {
-            event.waitUntil(notifyNotifi(monitor, monitorOperational, downtimeString(monitorsState.monitors[monitor.id].currentFails)))
         }
     }
 
