@@ -124,7 +124,7 @@ export async function processCronTrigger(event) {
             typeof SECRET_NOTIFI_CREDENTIALS !== 'undefined' &&
             SECRET_NOTIFI_CREDENTIALS !== 'default-gh-action-secret'
         ) {
-            event.waitUntil(notifyNotifi(monitor, monitorOperational, downtimeString(monitorsState.monitors[monitor.id].currentFails)))
+            event.waitUntil(notifyNotifi(monitor, monitorOperational, downtimeString(currentFails + 1)))
         }
 
         if (config.settings.collectResponseTimes && monitorOperational) {

@@ -1,5 +1,5 @@
 import config from '../../config.yaml'
-import {downtimeString, getDate} from "../functions/helpers";
+import {downtimeString} from "../functions/helpers";
 
 const classes = {
   gray: 'bg-gray-200 text-gray-800 dark:bg-gray-800 dark:text-gray-200',
@@ -15,17 +15,12 @@ export default function MonitorStatusLabel({ kvMonitor }) {
   let text = 'No data'
 
   if (typeof kvMonitor !== 'undefined') {
-    const checkDay = getDate()
     if (kvMonitor.lastCheck.operational) {
       color = 'green'
       text = config.settings.monitorLabelOperational
-      if(kvMonitor.checks.hasOwnProperty(checkDay) && kvMonitor.checks[checkDay].fails > 0){
-        color = 'yellow'
-        text = 'Was ' + downtimeString(kvMonitor.checks[checkDay].fails).toLowerCase()
-      }
     } else {
       color = 'red'
-      text = downtimeString(kvMonitor.checks[checkDay].fails)
+      text = downtimeString(kvMonitor.currentFails)
     }
   }
 
