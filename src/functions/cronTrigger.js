@@ -63,6 +63,8 @@ export async function processCronTrigger(event) {
         const monitorOperational =
             checkResponse.status === (monitor.expectStatus || 200)
 
+        const monitorChange = monitorsState.monitors[monitor.id].lastCheck.operational !== monitorOperational
+
         // Save monitor's last check response status
         monitorsState.monitors[monitor.id].lastCheck = {
             status: checkResponse.status,
@@ -93,9 +95,9 @@ export async function processCronTrigger(event) {
 
 
         const currentFails = monitorsState.monitors[monitor.id].currentFails
-        const monitorChange = monitorsState.monitors[monitor.id].lastCheck.operational !== monitorOperational
         const reminderCountNow = currentFails % config.settings.reminderMinuteInterval === 0
         const reminderCountLimit = Math.floor(currentFails / config.settings.reminderMinuteInterval) <= config.settings.reminderCount
+
         let shouldAlert = monitorChange || (reminderCountNow && reminderCountLimit && !monitorOperational)
 
         // Send Telegram message on monitor change
