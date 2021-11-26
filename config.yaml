@@ -6,10 +6,10 @@ settings:
   collectResponseTimes: true # collects avg response times from CRON locations
   reminderCount: 1
 
-  allmonitorsOperational: 'All Systems Operational'
-  notAllmonitorsOperational: 'Not All Systems Operational'
-  monitorLabelOperational: 'Operational'
-  monitorLabelNotOperational: 'Not Operational'
+  allmonitorsOperational: 'All Systems Up'
+  notAllmonitorsOperational: 'Not All Systems Up'
+  monitorLabelOperational: 'Up'
+  monitorLabelNotOperational: 'Down'
   monitorLabelNoData: 'No data'
   dayInHistogramNoData: 'No data'
   dayInHistogramOperational: 'All good'
