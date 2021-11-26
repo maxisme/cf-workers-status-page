@@ -161,9 +161,9 @@ export function downtimeString(totalMinutes) {
   if (hours === 24){
     return initString+"all day!"
   } else if(hours > 0){
-    return initString+`${hours} hours & ${minutes} minutes!`
+    return initString+`${hours} hours & ${minutes} minutes`
   }
-  return initString+`${minutes} minutes!`
+  return initString+`${minutes} minutes`
 }
 
 export function getDate() {

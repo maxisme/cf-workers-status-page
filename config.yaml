@@ -4,7 +4,8 @@ settings:
   logo: logo-192x192.png # image in ./public/ folder
   daysInHistogram: 30 # number of days you want to display in histogram
   collectResponseTimes: true # collects avg response times from CRON locations
-  reminderCount: 1
+  reminderCount: 10
+  reminderMinuteInterval: 2
 
   allmonitorsOperational: 'All Systems Up'
   notAllmonitorsOperational: 'Not All Systems Up'
