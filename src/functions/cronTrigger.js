@@ -96,7 +96,7 @@ export async function processCronTrigger(event) {
         const monitorChange = monitorsState.monitors[monitor.id].lastCheck.operational !== monitorOperational
         const reminderCountNow = currentFails % config.settings.reminderMinuteInterval === 0
         const reminderCountLimit = Math.floor(currentFails / config.settings.reminderMinuteInterval) <= config.settings.reminderCount
-        let shouldAlert = monitorChange || (reminderCountNow && reminderCountLimit)
+        let shouldAlert = monitorChange || (reminderCountNow && reminderCountLimit && !monitorOperational)
 
         // Send Telegram message on monitor change
         if (
