@@ -19,7 +19,7 @@ export default function MonitorStatusLabel({ kvMonitor }) {
     if (kvMonitor.lastCheck.operational) {
       color = 'green'
       text = config.settings.monitorLabelOperational
-      if(kvMonitor.checks.hasOwnProperty(checkDay)){
+      if(kvMonitor.checks.hasOwnProperty(checkDay) && kvMonitor.checks[checkDay].fails > 0){
         color = 'yellow'
         text = 'Was ' + downtimeString(kvMonitor.checks[checkDay].fails).toLowerCase()
       }
