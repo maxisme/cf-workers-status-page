@@ -44,6 +44,7 @@ export async function processCronTrigger(event) {
       redirect: monitor.followRedirect ? 'follow' : 'manual',
       headers: {
         'User-Agent': config.settings.user_agent || 'cf-worker-status-page',
+        'Cache-Control': 'no-cache',
       },
     }
 
