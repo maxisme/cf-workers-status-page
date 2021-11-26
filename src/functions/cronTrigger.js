@@ -35,6 +35,7 @@ export async function processCronTrigger(event) {
                 firstCheck: checkDay,
                 lastCheck: {},
                 checks: {},
+                currentFails: 0,
             }
         }
 
