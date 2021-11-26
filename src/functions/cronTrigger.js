@@ -1,6 +1,7 @@
 import config from '../../config.yaml'
 
 import {
+    downtimeString,
     getCheckLocation,
     getDate,
     getKVMonitors,
@@ -160,7 +161,7 @@ export async function processCronTrigger(event) {
             typeof SECRET_NOTIFI_CREDENTIALS !== 'undefined' &&
             SECRET_NOTIFI_CREDENTIALS !== 'default-gh-action-secret'
         ) {
-            event.waitUntil(notifyNotifi(monitor, monitorOperational))
+            event.waitUntil(notifyNotifi(monitor, monitorOperational, downtimeString(monitorsState.monitors[monitor.id].checks[checkDay].currentFails)))
         }
     }
 

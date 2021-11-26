@@ -109,9 +109,10 @@ export async function notifyDiscord(monitor, operational) {
 }
 
 // https://notifi.it
-export async function notifyNotifi(monitor, operational) {
+export async function notifyNotifi(monitor, operational, message) {
   const payload = {
     title: `${monitor.name} is ${getOperationalLabel(operational)}`,
+    message: message,
     link: config.settings.url,
     credentials: SECRET_NOTIFI_CREDENTIALS
   }
