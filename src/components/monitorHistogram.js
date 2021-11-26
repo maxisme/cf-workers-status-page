@@ -29,7 +29,7 @@ export default function MonitorHistogram({monitorId, kvMonitor}) {
                         dayInHistogramLabel = 'Was ' + downtimeString(kvMonitor.checks[dayInHistogram].fails).toLowerCase() + ' today!'
                         if (!kvMonitor.lastCheck.operational) {
                             bg = 'red'
-                            dayInHistogramLabel = downtimeString(kvMonitor.checks[dayInHistogram].fails) + ' today!'
+                            dayInHistogramLabel = downtimeString(kvMonitor.currentFails)
                         }
                     } else {
                         bg = 'green'
