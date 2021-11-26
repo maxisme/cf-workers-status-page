@@ -112,13 +112,11 @@ export async function notifyDiscord(monitor, operational) {
 export async function notifyNotifi(monitor, operational) {
   const payload = {
     title: `${monitor.name} is ${getOperationalLabel(operational)}`,
-    url: config.settings.url,
+    link: config.settings.url,
     credentials: SECRET_NOTIFI_CREDENTIALS
   }
   const params = new URLSearchParams(payload).toString()
-  return fetch("https://d.notifi.it/api"+params, {
-    method: 'POST',
-  })
+  return fetch("https://d.notifi.it/api?"+params)
 }
 
 export function useKeyPress(targetKey) {
