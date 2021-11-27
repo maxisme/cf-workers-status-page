@@ -27,7 +27,9 @@ export async function notifySlack(monitor, operational) {
   const payload = {
     attachments: [
       {
-        fallback: `Monitor ${monitor.name} changed status to ${getOperationalLabel(operational)}`,
+        fallback: `Monitor ${
+          monitor.name
+        } changed status to ${getOperationalLabel(operational)}`,
         color: operational ? '#36a64f' : '#f2c744',
         blocks: [
           {
@@ -114,10 +116,10 @@ export async function notifyNotifi(monitor, operational, message) {
     title: `${monitor.name} is ${getOperationalLabel(operational)}`,
     message: message,
     link: config.settings.url,
-    credentials: SECRET_NOTIFI_CREDENTIALS
+    credentials: SECRET_NOTIFI_CREDENTIALS,
   }
   const params = new URLSearchParams(payload).toString()
-  return fetch("https://d.notifi.it/api?"+params)
+  return fetch('https://d.notifi.it/api?' + params)
 }
 
 export function useKeyPress(targetKey) {
@@ -156,15 +158,15 @@ export async function getCheckLocation() {
 }
 
 export function downtimeString(totalMinutes) {
-  const initString = "Down "
-  const hours = Math.floor(totalMinutes / 60);
-  const minutes = totalMinutes % 60;
-  if (hours === 24){
-    return initString+"all day!"
-  } else if(hours > 0){
-    return initString+`${hours} hours & ${minutes} minutes`
+  const initString = 'Down '
+  const hours = Math.floor(totalMinutes / 60)
+  const minutes = totalMinutes % 60
+  if (hours === 24) {
+    return initString + 'all day!'
+  } else if (hours > 0) {
+    return initString + `${hours} hours & ${minutes} minutes`
   }
-  return initString+`${minutes} minutes`
+  return initString + `${minutes} minutes`
 }
 
 export function getDate() {
