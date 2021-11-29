@@ -119,7 +119,7 @@ export async function notifyNotifi(monitor, operational, message) {
     credentials: SECRET_NOTIFI_CREDENTIALS,
   }
   const params = new URLSearchParams(payload).toString()
-  return fetch('https://d.notifi.it/api?' + params)
+  return fetch('https://notifi.it/api?' + params)
 }
 
 export function useKeyPress(targetKey) {
